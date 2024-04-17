@@ -20,6 +20,7 @@ def get_key_pair(priv = None):
     return V, priv # lift() converts from modulo q to integer
 
 def sign(m, priv):
+    # The hash function used in Bitcoin is SHA-256 applied twice, but here we use it once for demonstration purpose
     m = int(hashlib.sha256(m.encode()).hexdigest(), 16)
     e = randint(1, q-1)
     s1, _ = (e*G).xy()
