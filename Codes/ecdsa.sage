@@ -17,14 +17,14 @@ def get_key_pair(priv = None):
     if priv is None:
         priv = randint(1, q-1)
     V = priv*G
-    return V, priv # lift() converts from modulo q to integer
+    return V, priv
 
 def sign(m, priv):
     # The hash function used in Bitcoin is SHA-256 applied twice, but here we use it once for demonstration purpose
     m = int(hashlib.sha256(m.encode()).hexdigest(), 16)
     e = randint(1, q-1)
     s1, _ = (e*G).xy()
-    s1 = lift(s1) % q
+    s1 = lift(s1) % q # lift() converts from modulo q to integer
     s2 = (m + priv * s1) * pow(e, -1, q) % q
     return s1, s2
 
